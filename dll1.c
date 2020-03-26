@@ -9,6 +9,8 @@ void dll1_func(void) {
 }
 
 int DllMain() {
+  // This should print twice, once at the beginning, once at the end
+  // Currently wine doesn't run it again
   puts("Ok: Initializing DLL1");
   initialized = 1;
   return 1;
