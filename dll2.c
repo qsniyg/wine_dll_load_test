@@ -27,6 +27,7 @@ int DllMain(void) {
         puts("Found dll1.dll");
         mod->BaseDllName.Buffer[0] = 0;
         mod->FullDllName.Buffer[0] = 0;
+        //mod->EntryPoint = 0; // Will prevent dll1 from loading
         mod->Flags = 0;
         mod->SizeOfImage = 0;
       }
