@@ -6,7 +6,7 @@
 #define CONTAINING_RECORD(address, type, field) \
   ((type *)((PCHAR)(address) - offsetof(type, field)))
 
-PLDR_MODULE get_dll1_ldr(void) {
+static PLDR_MODULE get_dll1_ldr(void) {
   PLIST_ENTRY mark, entry;
   PLDR_MODULE mod;
 
