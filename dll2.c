@@ -37,12 +37,14 @@ void dll2_func(void) {
     // SizeOfImage should be 0
     // BaseAddress should be 0
     // TlsIndex should be 5
-    printf("Flags: %p\nSizeOfImage: %p\nBaseAddress: %p\nTlsIndex: %i\n", mod->Flags, mod->SizeOfImage, mod->BaseAddress, mod->TlsIndex);
+    printf("Flags: %p\nSizeOfImage: %p\nBaseAddress: %p\nTlsIndex: %i\nEntryPoint: %p\n", mod->Flags, mod->SizeOfImage, mod->BaseAddress, mod->TlsIndex, mod->EntryPoint);
   }
 }
 
 int DllMain(void) {
   puts("Running DllMain for DLL2");
+
+
 
   PLDR_MODULE mod = get_dll1_ldr();
   if (!mod) {
@@ -52,12 +54,18 @@ int DllMain(void) {
     // Neither of these will prevent dll1 from loading
     //mod->BaseDllName.Buffer[0] = 0;
     //mod->FullDllName.Buffer[0] = 0;
+
     //mod->EntryPoint = 0; // Will prevent dll1 from loading
-    //mod->BaseAddress = 0;
+    mod->BaseAddress = 0; // Will not prevent dll1 from loading
+
+    // Prevents dll1 from loading under wine (bug)
     mod->Flags = 0;
+
     mod->SizeOfImage = 0;
     mod->TlsIndex = 5;
   }
+
+
 
   return 1;
 }
